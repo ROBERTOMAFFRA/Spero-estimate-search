@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spero Estimate Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        async function searchItems() {
+            let query = document.getElementById("searchBox").value;
+            let response = await fetch(`/search?q=${query}`);
+            let data = await response.json();
+
+            let tbody = document.getElementById("results-body");
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                let row = `<tr>
+                    <td>${item.DESCRIPTION}</td>
+                    <td>${item.QTY}</td>
+                    <td>${item.REMOVE}</td>
+                    <td>${item.REPLACE}</td>
+                    <td>${item.TOTAL}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Spero Estimate Search</h1>
+    <input type="text" id="searchBox" onkeyup="searchItems()" placeholder="Digite ex: drywall">
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Qtd</th>
+                <th>Remove</th>
+                <th>Replace</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+    </table>
+</body>
+</html>
