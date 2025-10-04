@@ -4,7 +4,8 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 # Carregar planilha
-df = pd.read_excel("data/Modelo app estimate.xlsx", sheet_name="Sheet1")
+df = pd.read_excel("Modelo app estimate.xlsx", sheet_name="Sheet1")
+
 
 @app.route("/")
 def index():
